@@ -1,3 +1,19 @@
 #resolved, #remove {
     width: 40px;
 }
+
+#add-bug-btn {
+    margin-left: 1px!important;
+}
+
+input:active, input:focus {
+    outline-style:  dotted!important;
+}
+
+.list-group>div:nth-child(even) {
+    background-color: whitesmoke!important;
+}
+
+.list-group>div:nth-child(odd) {
+    background-color: floralwhite!important;;
+}

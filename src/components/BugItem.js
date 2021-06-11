@@ -2,7 +2,7 @@ import {Button} from "reactstrap";
 
 export default function BugItem () {
     return (
-        <div className="row-cols-2 shadow-sm p-1 mb-1 bg-white rounded d-flex align-content-center justify-content-between">
+        <div id="bug-item" className="row-cols-2 shadow-sm p-1 mb-2 rounded-0 bg-white rounded d-flex align-content-center justify-content-between">
             <div className="col-8 p-md-2 pr-2 mr-0">
                 <p className="mb-0">
                     Bug 1
