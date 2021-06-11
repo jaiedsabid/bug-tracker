@@ -5,7 +5,7 @@ export default function AddBugForm (){
         <Form inline className="justify-content-center w-100">
             <FormGroup className="col-8 mb-0 mr-1 pr-0">
                 <Input type="text"
-                       className="w-100"
+                       className="w-100 rounded-0"
                        name="todo"
                        id="todo"
                        placeholder="ex. bug 1" />
