@@ -2,7 +2,7 @@ import {Col, Container, Row} from "reactstrap";
 import AddBugForm from "./AddBugForm";
 import BugItem from "./BugItem";
 
-export default function Home() {
+export default function Home(propss) {
     return (
         <Container>
             <Row className="mx-auto align-items-center align-content-center justify-content-center vh-100">
@@ -15,8 +15,8 @@ export default function Home() {
                     <Row className="mt-5 justify-content-center">
                         <Col className="py-0 col-12 col-md-8 col-md-5">
                             <div className="list-group">
-                                <BugItem />
-                                <BugItem />
+                                <BugItem id={1} bug="Bug 1" />
+                                <BugItem id={2} bug="Bug 2" />
                             </div>
                         </Col>
                     </Row>
