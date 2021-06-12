@@ -3,15 +3,30 @@ import {useState} from "react";
 
 export default function AddBugForm(props) {
     const [bug, setBug] = useState("");
+    const [isValid, setIsValid] = useState(true);
+
+    const validate = (value) => {
+        if(value.length < 8 || value.length > 150 || value === "") {
+            setIsValid(false);
+        } else {
+            setIsValid(true);
+        }
+    };
 
     const handleChange = (event) => {
-        setBug(event.target.value);
+        let value = event.target.value;
+        validate(value);
+        setBug(value);
     };
     const handleSubmit = (event) => {
         event.preventDefault();
         alert(`Bug: \n${bug}`);
         setBug("");
+        setIsValid(true);
     }
+    const handleBlur = () => {
+        validate(bug);
+    };
 
     return (
         <Form inline onSubmit={handleSubmit} className="justify-content-center w-100">
@@ -22,9 +37,13 @@ export default function AddBugForm(props) {
                        value={bug}
                        onChange={handleChange}
                        id="bug"
-                       placeholder="ex. bug 1" />
+                       placeholder="ex. bug 1"
+                       valid={isValid}
+                       invalid={!isValid}
+                       onBlur={handleBlur}
+                />
             </FormGroup>
-            <Button id="add-bug-btn" className="ml-0 btn-primary rounded-0">
+            <Button id="add-bug-btn" className="ml-0 btn-primary rounded-0" disabled={!isValid}>
                 <i className="fa fa-plus"></i>
             </Button>
         </Form>

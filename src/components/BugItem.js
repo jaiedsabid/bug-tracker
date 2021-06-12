@@ -4,7 +4,8 @@ import {
     ModalBody,
     ModalHeader,
     ModalFooter,
-    Row, Collapse
+    Row, Collapse,
+    Form
 } from "reactstrap";
 import {useState} from "react";
 
@@ -17,8 +18,16 @@ export default function BugItem (props) {
     const toggleCollapse = () => setCollapse(!collapse);
     const toggleModal = () => setModalState(!modalState);
     const handleChange = (event) => {
-        setSolution(event.target.value);
+        let value = event.target.value;
+        setSolution(value);
     };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        toggleModal();
+        alert(`Solution: \n${solution}`);
+        setSolution("");
+    };
+
 
     return (
         <div id={props.id}
@@ -35,10 +44,10 @@ export default function BugItem (props) {
                 </Collapse>
             </div>
             <div className="col-3 p-0 my-auto mx-auto d-flex justify-content-end">
-                <Button onClick={toggleModal} id="resolved" className="btn-success rounded-0 mr-1">
+                <Button onClick={toggleModal} id="resolved" color="success" className="rounded-0 mr-1">
                     <i className="fa fa-check"></i>
                 </Button>
-                <Button id="remove" className="btn-danger rounded-0">
+                <Button id="remove" color="danger" className="rounded-0">
                     <i className="fa fa-trash-o"></i>
                 </Button>
             </div>
@@ -46,6 +55,7 @@ export default function BugItem (props) {
                 <ModalHeader toggle={toggleModal}>
                     Solving Steps
                 </ModalHeader>
+                <Form onSubmit={handleSubmit}>
                 <ModalBody>
                     <Row>
                         <Col md={12}>
@@ -61,13 +71,14 @@ export default function BugItem (props) {
                     </Row>
                 </ModalBody>
                 <ModalFooter>
-                    <Button className="btn-success">
+                    <Button name="submit" color="success">
                         Submit
                     </Button>
-                    <Button className="btn-danger" onClick={toggleModal}>
+                    <Button name="cancel" color="danger" onClick={toggleModal}>
                         Cancel
                     </Button>
                 </ModalFooter>
+                </Form>
             </Modal>
         </div>
     );
