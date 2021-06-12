@@ -33,17 +33,17 @@ export default function BugItem (props) {
         <div id={props.id}
              className="row-cols-2 shadow-sm p-1 mb-2 rounded-0 bg-white rounded d-flex align-content-center justify-content-between"
         >
-            <div onClick={toggleCollapse} className="col-8 p-md-2 pr-2 mr-0">
+            <div onClick={toggleCollapse} className="col-8 col-lg-9 p-md-1 pr-2 mr-0">
                 <p className="mb-0">
                     {props.bug}
                 </p>
-                <Collapse isOpen={collapse} toggle={toggleCollapse}>
+                <Collapse isOpen={collapse} toggle={toggleCollapse} className="w-100">
                     <hr/>
                     <h5 className="font-weight-bold">Solving steps/solution: </h5>
                     <p>{`Bug ${props.id} solution description`}</p>
                 </Collapse>
             </div>
-            <div className="col-3 p-0 my-auto mx-auto d-flex justify-content-end">
+            <div className="col-4 col-lg-3 p-0 my-auto mx-auto d-flex justify-content-center">
                 <Button onClick={toggleModal} id="resolved" color="success" className="rounded-0 mr-1">
                     <i className="fa fa-check"></i>
                 </Button>
