@@ -1,4 +1,4 @@
-import {Button, FormGroup, Form, Input} from "reactstrap";
+import {Button, FormGroup, Form, Input, FormFeedback} from "reactstrap";
 import {useState} from "react";
 
 export default function AddBugForm(props) {
@@ -8,8 +8,10 @@ export default function AddBugForm(props) {
     const validate = (value) => {
         if(value.length < 8 || value.length > 150 || value === "") {
             setIsValid(false);
+            return false;
         } else {
             setIsValid(true);
+            return true;
         }
     };
 
@@ -20,9 +22,11 @@ export default function AddBugForm(props) {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert(`Bug: \n${bug}`);
-        setBug("");
-        setIsValid(true);
+        if(validate(event.target.bug.value)) {
+            alert(`Bug: \n${bug}`);
+            setBug("");
+            setIsValid(true);
+        }
     }
     const handleBlur = () => {
         validate(bug);
@@ -42,6 +46,9 @@ export default function AddBugForm(props) {
                        invalid={!isValid}
                        onBlur={handleBlur}
                 />
+                <FormFeedback invalid={!isValid} tooltip>
+                    Please write your bug info before submit
+                </FormFeedback>
             </FormGroup>
             <Button id="add-bug-btn" className="ml-0 btn-primary rounded-0" disabled={!isValid}>
                 <i className="fa fa-plus"></i>

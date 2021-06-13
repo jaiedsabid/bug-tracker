@@ -5,7 +5,7 @@ import {
     ModalHeader,
     ModalFooter,
     Row, Collapse,
-    Form
+    Form, FormFeedback
 } from "reactstrap";
 import {useState} from "react";
 
@@ -14,20 +14,33 @@ export default function BugItem (props) {
     const [solution, setSolution] = useState("");
     const [modalState, setModalState] = useState(false);
     const [collapse, setCollapse] = useState(false);
+    const [isValid, setIsValid] = useState(true);
 
     const toggleCollapse = () => setCollapse(!collapse);
     const toggleModal = () => setModalState(!modalState);
     const handleChange = (event) => {
         let value = event.target.value;
+        validate(value);
         setSolution(value);
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        toggleModal();
-        alert(`Solution: \n${solution}`);
-        setSolution("");
+        if(validate(event.target.solution.value)) {
+            toggleModal();
+            alert(`Solution: \n${solution}`);
+            setSolution("");
+        }
     };
 
+    const validate = value => {
+        if(value.length < 5 || value.length > 300 || value === "") {
+            setIsValid(false);
+            return false;
+        } else {
+            setIsValid(true);
+            return true;
+        }
+    };
 
     return (
         <div id={props.id}
@@ -65,8 +78,13 @@ export default function BugItem (props) {
                                    id="solution"
                                    onChange={handleChange}
                                    value={solution}
+                                   invalid={!isValid}
+                                   valid={isValid}
                                    rows="7"
                             />
+                            <FormFeedback invalid={!isValid} tooltip>
+                                Please write your solution before submit
+                            </FormFeedback>
                         </Col>
                     </Row>
                 </ModalBody>
