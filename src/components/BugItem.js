@@ -10,7 +10,7 @@ import {
 import {useState} from "react";
 
 
-export default function BugItem (props) {
+export default function BugItem ({bug}) {
     const [solution, setSolution] = useState("");
     const [modalState, setModalState] = useState(false);
     const [collapse, setCollapse] = useState(false);
@@ -43,21 +43,28 @@ export default function BugItem (props) {
     };
 
     return (
-        <div id={props.id}
+        <div key={bug.id}
              className="row-cols-2 shadow-sm p-1 mb-2 rounded-0 bg-white rounded d-flex align-content-center justify-content-between"
         >
             <div onClick={toggleCollapse} className="col-8 col-lg-9 p-md-1 pr-2 mr-0">
                 <p className="mb-0">
-                    {props.bug}
+                    {bug.bugInfo}
                 </p>
-                <Collapse isOpen={collapse} toggle={toggleCollapse} className="w-100">
-                    <hr/>
-                    <h5 className="font-weight-bold">Solving steps/solution: </h5>
-                    <p>{`Bug ${props.id} solution description`}</p>
-                </Collapse>
+                {
+                    bug.isResolved ?
+                        <Collapse isOpen={collapse} toggle={toggleCollapse} className="w-100">
+                            <hr/>
+                            <h5 className="font-weight-bold">Solving steps/solution: </h5>
+                            <p>{bug.bugSolution}</p>
+                        </Collapse> : ""
+                }
             </div>
             <div className="col-4 col-lg-3 p-0 my-auto mx-auto d-flex justify-content-center">
-                <Button onClick={toggleModal} id="resolved" color="success" className="rounded-0 mr-1">
+                <Button onClick={toggleModal} id="resolve"
+                        name="resolve" color={bug.isResolved ? "secondary": "success"}
+                        className="rounded-0 mr-1"
+                        disabled={bug.isResolved}
+                >
                     <i className="fa fa-check"></i>
                 </Button>
                 <Button id="remove" color="danger" className="rounded-0">

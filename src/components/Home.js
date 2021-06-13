@@ -1,8 +1,14 @@
 import {Col, Container, Row} from "reactstrap";
 import AddBugForm from "./AddBugForm";
 import BugItem from "./BugItem";
+import BUGS from "../shared/BUGS";
 
 export default function Home(propss) {
+
+    const RenderBugItems = BUGS.map(item => {
+        return <BugItem bug={item} />;
+    });
+
     return (
         <Container>
             <Row className="mx-auto align-items-center align-content-center justify-content-center vh-100">
@@ -15,8 +21,7 @@ export default function Home(propss) {
                     <Row className="mt-5 justify-content-center">
                         <Col className="py-0 col-12 col-md-8 col-md-5">
                             <div className="list-group">
-                                <BugItem id={1} bug="Bug 1" />
-                                <BugItem id={2} bug="Bug 2" />
+                                {RenderBugItems}
                             </div>
                         </Col>
                     </Row>
