@@ -6,7 +6,7 @@ export default function AddBugForm(props) {
     const [isValid, setIsValid] = useState(true);
 
     const validate = (value) => {
-        if(value.length < 8 || value.length > 150 || value === "") {
+        if(value.length < 1 || value.length > 350 || value === "") {
             setIsValid(false);
             return false;
         } else {

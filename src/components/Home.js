@@ -2,8 +2,13 @@ import {Col, Container, Row} from "reactstrap";
 import AddBugForm from "./AddBugForm";
 import BugItem from "./BugItem";
 import {connect} from "react-redux";
-import {fetchBugs, postBug} from "../redux/ActionCreators";
-import {useEffect} from "react";
+import {
+    fetchBugs,
+    postBug,
+    removeBug,
+    resolveBug
+} from "../redux/ActionCreators";
+import {useEffect, useState} from "react";
 
 const mapStateToProps = state => {
     return {bugs: state.bugs};
@@ -11,18 +16,28 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     fetchBugs: () => dispatch(fetchBugs()),
-    postBug: (bug) => dispatch(postBug(bug))
+    postBug: (bug) => dispatch(postBug(bug)),
+    removeBug: (id) => dispatch(removeBug(id)),
+    resolveBug: (id, solution) => dispatch(resolveBug(id, solution))
 });
 
 function Home(props) {
+    const [componentMounted, setComponentMounted] = useState(false);
 
     const {fetchBugs} = props;
     useEffect(() => {
-        fetchBugs();
-    }, [fetchBugs]);
+        if(!componentMounted) {
+            fetchBugs();
+            setComponentMounted(true)
+        }
+    }, [fetchBugs, props.bugs]);
 
     const RenderBugItems = props.bugs.map(item => {
-        return <BugItem key={item.id} bug={item} />;
+        return <BugItem key={item.id}
+                        bug={item}
+                        removeBug={props.removeBug}
+                        resolveBug={props.resolveBug}
+        />;
     });
 
     return (

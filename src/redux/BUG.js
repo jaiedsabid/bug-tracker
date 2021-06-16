@@ -8,6 +8,20 @@ export default function Bugs(state = [], action) {
             let bugItem = action.payload;
             bugItem.id = state.length+1;
             return state.concat(bugItem);
+        case ActionTypes.REMOVE_BUG:
+            let newState = state.filter(item => {
+                return item.id !== action.payload;
+            });
+            return newState;
+        case ActionTypes.RESOLVE_BUG:
+            let newStateAfter = state.map(item => {
+                if(item.id === action.payload.id) {
+                    return {...item, isResolved: true, bugSolution: action.payload.solution}
+                } else {
+                    return item;
+                }
+            });
+            return newStateAfter;
         default:
             return state;
     }

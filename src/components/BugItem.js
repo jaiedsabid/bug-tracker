@@ -10,7 +10,7 @@ import {
 import {useState} from "react";
 
 
-export default function BugItem ({bug}) {
+export default function BugItem ({bug, removeBug, resolveBug}) {
     const [solution, setSolution] = useState("");
     const [modalState, setModalState] = useState(false);
     const [collapse, setCollapse] = useState(false);
@@ -27,10 +27,13 @@ export default function BugItem ({bug}) {
         event.preventDefault();
         if(validate(event.target.solution.value)) {
             toggleModal();
-            alert(`Solution: \n${solution}`);
+            resolveBug(bug.id, event.target.solution.value);
             setSolution("");
         }
     };
+    const onRemove = () => {
+        removeBug(bug.id);
+    }
 
     const validate = value => {
         if(value.length < 5 || value.length > 300 || value === "") {
@@ -67,7 +70,11 @@ export default function BugItem ({bug}) {
                 >
                     <i className="fa fa-check"></i>
                 </Button>
-                <Button id="remove" color="danger" className="rounded-0">
+                <Button id="remove"
+                        color="danger"
+                        className="rounded-0"
+                        onClick={onRemove}
+                >
                     <i className="fa fa-trash-o"></i>
                 </Button>
             </div>

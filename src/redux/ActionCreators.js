@@ -27,3 +27,20 @@ export const addBug = (bug) => {
         payload: bug
     };
 }
+
+export const removeBug = (id) => {
+    return {
+        type: ActionTypes.REMOVE_BUG,
+        payload: id
+    };
+}
+
+export const resolveBug = (id, solution) => {
+    return {
+        type: ActionTypes.RESOLVE_BUG,
+        payload: {
+            id: id,
+            solution: solution
+        }
+    };
+}
