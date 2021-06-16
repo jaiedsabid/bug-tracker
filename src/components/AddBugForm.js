@@ -23,7 +23,7 @@ export default function AddBugForm(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         if(validate(event.target.bug.value)) {
-            alert(`Bug: \n${bug}`);
+            props.postBug(bug);
             setBug("");
             setIsValid(true);
         }

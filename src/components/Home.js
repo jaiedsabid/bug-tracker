@@ -1,12 +1,28 @@
 import {Col, Container, Row} from "reactstrap";
 import AddBugForm from "./AddBugForm";
 import BugItem from "./BugItem";
-import BUGS from "../shared/BUGS";
+import {connect} from "react-redux";
+import {fetchBugs, postBug} from "../redux/ActionCreators";
+import {useEffect} from "react";
 
-export default function Home(propss) {
+const mapStateToProps = state => {
+    return {bugs: state.bugs};
+};
 
-    const RenderBugItems = BUGS.map(item => {
-        return <BugItem bug={item} />;
+const mapDispatchToProps = dispatch => ({
+    fetchBugs: () => dispatch(fetchBugs()),
+    postBug: (bug) => dispatch(postBug(bug))
+});
+
+function Home(props) {
+
+    const {fetchBugs} = props;
+    useEffect(() => {
+        fetchBugs();
+    }, [fetchBugs]);
+
+    const RenderBugItems = props.bugs.map(item => {
+        return <BugItem key={item.id} bug={item} />;
     });
 
     return (
@@ -16,7 +32,7 @@ export default function Home(propss) {
                     <h1 className="text-center text-capitalize font-weight-bolder">Bug Tracker</h1>
                     <hr className="w-75 mb-5"/>
                     <Row>
-                        <AddBugForm />
+                        <AddBugForm postBug={props.postBug} />
                     </Row>
                     <Row className="mt-5 justify-content-center">
                         <Col className="py-0 col-12 col-md-8 col-md-5">
@@ -30,3 +46,5 @@ export default function Home(propss) {
         </Container>
     );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

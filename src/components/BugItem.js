@@ -43,7 +43,7 @@ export default function BugItem ({bug}) {
     };
 
     return (
-        <div key={bug.id}
+        <div
              className="row-cols-2 shadow-sm p-1 mb-2 rounded-0 bg-white rounded d-flex align-content-center justify-content-between"
         >
             <div onClick={toggleCollapse} className="col-8 col-lg-9 p-md-1 pr-2 mr-0">
