@@ -32,7 +32,9 @@ export default function BugItem ({bug, removeBug, resolveBug}) {
         }
     };
     const onRemove = () => {
-        removeBug(bug.id);
+        if(window.confirm("Are you sure?")) {
+            removeBug(bug.id);
+        }
     }
 
     const validate = value => {
