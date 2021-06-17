@@ -28,9 +28,7 @@ export default function AddBugForm(props) {
             setIsValid(true);
         }
     }
-    const handleBlur = () => {
-        validate(bug);
-    };
+
 
     return (
         <Form inline onSubmit={handleSubmit} className="justify-content-center w-100">
@@ -44,7 +42,6 @@ export default function AddBugForm(props) {
                        placeholder="ex. bug 1"
                        valid={isValid}
                        invalid={!isValid}
-                       onBlur={handleBlur}
                 />
                 <FormFeedback invalid={!isValid} tooltip>
                     Please write your bug info before submit
