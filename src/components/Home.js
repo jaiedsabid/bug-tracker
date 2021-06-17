@@ -41,8 +41,8 @@ function Home(props) {
     });
 
     return (
-        <Container>
-            <Row className="mx-auto align-items-center align-content-center justify-content-center vh-100">
+        <Container className="min-vh-100 h-100 d-flex align-items-center">
+            <Row className="mx-auto justify-content-center w-100">
                 <Col className="shadow bg-white rounded-0 py-4 col-12 col-sm-8">
                     <h1 className="text-center text-capitalize font-weight-bolder">Bug Tracker</h1>
                     <hr className="w-75 mb-5"/>
