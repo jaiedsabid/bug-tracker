@@ -10,7 +10,7 @@ import {
 import {useState} from "react";
 
 
-export default function BugItem ({bug, removeBug, resolveBug}) {
+export default function BugItem ({bug, removeBugReq, resolveBugReq}) {
     const [solution, setSolution] = useState("");
     const [modalState, setModalState] = useState(false);
     const [collapse, setCollapse] = useState(false);
@@ -27,13 +27,13 @@ export default function BugItem ({bug, removeBug, resolveBug}) {
         event.preventDefault();
         if(validate(event.target.solution.value)) {
             toggleModal();
-            resolveBug(bug.id, event.target.solution.value);
+            resolveBugReq(bug.id, event.target.solution.value);
             setSolution("");
         }
     };
     const onRemove = () => {
         if(window.confirm("Are you sure?")) {
-            removeBug(bug.id);
+            removeBugReq(bug.id);
         }
     }
 

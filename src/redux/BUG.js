@@ -6,7 +6,6 @@ export default function Bugs(state = [], action) {
             return action.payload;
         case ActionTypes.ADD_BUG:
             let bugItem = action.payload;
-            bugItem.id = state.length+1;
             return state.concat(bugItem);
         case ActionTypes.REMOVE_BUG:
             let newState = state.filter(item => {
