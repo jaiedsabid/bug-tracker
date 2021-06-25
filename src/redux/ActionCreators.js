@@ -18,9 +18,9 @@ export const fetchBugs = () => async dispatch => {
     }
 };
 
-export const postBug = (bug) => async dispatch => {
-    let newBug = {bugInfo: bug};
+export const postBug = (bug) => async (dispatch) => {
     try {
+        let newBug = {bugInfo: bug};
         const postData = await fetch(baseURL, {
             method: "POST",
             body: JSON.stringify(newBug),
@@ -28,12 +28,13 @@ export const postBug = (bug) => async dispatch => {
         });
         const data = await postData.json();
         dispatch(addBug(data));
+        return;
     } catch (e) {
         console.log("Error:", e);
     }
 }
 
-export const addBug = async (bug) => {
+export const addBug = (bug) => {
     return {
         type: ActionTypes.ADD_BUG,
         payload: bug
