@@ -27,13 +27,13 @@ export default function BugItem ({bug, removeBugReq, resolveBugReq}) {
         event.preventDefault();
         if(validate(event.target.solution.value)) {
             toggleModal();
-            resolveBugReq(bug.id, event.target.solution.value);
+            resolveBugReq(bug._id, event.target.solution.value);
             setSolution("");
         }
     };
     const onRemove = () => {
         if(window.confirm("Are you sure?")) {
-            removeBugReq(bug.id);
+            removeBugReq(bug._id);
         }
     }
 

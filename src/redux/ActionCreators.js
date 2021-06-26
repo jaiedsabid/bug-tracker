@@ -43,8 +43,7 @@ export const addBug = (bug) => {
 
 export const removeBugReq = (id) => async (dispatch) => {
     try{
-        const jsonData = await fetch(baseURL + id, {method: "DELETE"});
-        const data = await jsonData.json();
+        await fetch(baseURL + id, {method: "DELETE"});
         dispatch(removeBug(id));
     } catch (e) {
         console.log("Error:", e);
@@ -60,12 +59,11 @@ export const removeBug = (id) => {
 
 export const resolveBugReq = (id, solution) => async (dispatch) => {
     try{
-        const jsonData = await fetch(baseURL + id, {
+        await fetch(baseURL + id, {
             method: "PUT",
             body: JSON.stringify({bugSolution: solution}),
             headers: {"Content-Type": "application/json"}
         });
-        const data = await jsonData.json();
         dispatch(resolveBug(id, solution));
     } catch (e) {
         console.log("Error:", e);

@@ -8,7 +8,7 @@ import {
     removeBugReq,
     resolveBugReq
 } from "../redux/ActionCreators";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
 const mapStateToProps = state => {
     return {bugs: state.bugs};
@@ -22,18 +22,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 function Home(props) {
-    const [componentMounted, setComponentMounted] = useState(false);
-
     const {fetchBugs} = props;
     useEffect(() => {
-        if(!componentMounted) {
-            fetchBugs();
-            setComponentMounted(true)
-        }
-    }, []);
+        fetchBugs();
+    }, [fetchBugs]);
 
     const RenderBugItems = props.bugs.map(item => {
-        return <BugItem key={item.id}
+        return <BugItem key={item._id}
                         bug={item}
                         removeBugReq={props.removeBugReq}
                         resolveBugReq={props.resolveBugReq}
